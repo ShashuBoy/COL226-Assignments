@@ -1,7 +1,7 @@
 Tokenizer for a simple arithmetic and boolean calculation language.
 
 Input:
-All token should preferably be delimited by a space character to avoid ambiguity in parsing (like 3-3 can be Integer(3), Integer(-3) or Integer(3) Operator(+) Integer(3) ). Though this is not compulsory and expression like "if(33>=37)then" are correctly parsed despite lack of delimitation by space.
+All token should preferably be delimited by a space character to avoid ambiguity in parsing (like 3-3 can be Integer(3), Integer(-3) or Integer(3) Operator(-) Integer(3) ). Though this is not compulsory and expression like "if(33>=37)then" are correctly parsed despite lack of delimitation by space.
 This design decision was taken by taking into account the ambiguity cause by lack of delimiter(space).
 
 Usage:
