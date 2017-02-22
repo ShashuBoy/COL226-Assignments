@@ -3,7 +3,7 @@ let integer = ['+''-']?('0'|['1'-'9']['0'-'9']*)
 let abs = "abs"
 let or_ = "\\/"
 let and_ = "/\\"
-let equal = "="
+let equal = '='
 let true_ = 'T'
 let false_ = 'F'
 let not_ = "not"
@@ -55,7 +55,7 @@ rule translate = parse
 | id as text {Printf.printf "Identifier(%s)\n" text; translate lexbuf }
 | term {Printf.printf "Delimiter\n"; translate lexbuf }
 | whitespace {translate lexbuf}
-| [^' ''\t''\n']+ as c  { Printf.printf "Invalid Token \"%s\"\n" c; translate lexbuf }
+| [^' ''\t''\n''+''-''=''*'';''^''('')''>''<']+ as c  { Printf.printf "Invalid Token \"%s\"\n" c; translate lexbuf }
 | eof   { exit 0 }
 
 {

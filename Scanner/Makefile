@@ -1,6 +1,7 @@
 all:
 	ocamllex scanner.mll
-	ocamlopt scanner.ml
-test:
-	ocamllex test.mll
-	ocamlopt test.ml
+	ocamlopt -o scanner scanner.ml
+clean:
+	rm *.ml
+	rm *.cm*
+	rm *.o
