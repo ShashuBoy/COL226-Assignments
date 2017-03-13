@@ -34,7 +34,7 @@
 
 
 %start main             /* the entry point */
-%type <Typefile.mix> main
+%type <Typefile.syntax_tree> main
 %%
 
 main:
@@ -42,45 +42,45 @@ main:
 ;
 expr:
     | subexp_mul                  { $1 }
-    | subexp_mul ADD expr         { add $1 $3 }
-    | subexp_mul SUB expr         { sub $1 $3 }
-    | subexp_mul OR expr          { or_ $1 $3 }
-    | subexp_mul AND expr         { and_ $1 $3 }
-    | subexp_mul LESS expr        { less $1 $3 }
-    | subexp_mul GRT expr         { grt $1 $3 }
-    | subexp_mul LEQ expr         { leq $1 $3 }
-    | subexp_mul GEQ expr         { geq $1 $3 }
-    | subexp_mul EQUAL expr       { equal $1 $3 }
+    | subexp_mul ADD expr         { Binop(Add,$1,$3) }
+    | subexp_mul SUB expr         { Binop(Sub,$1,$3) }
+    | subexp_mul OR expr          { Binop(Or,$1,$3) }
+    | subexp_mul AND expr         { Binop(And,$1,$3) }
+    | subexp_mul LESS expr        { Binop(Less,$1,$3) }
+    | subexp_mul GRT expr         { Binop(Grt,$1,$3) }
+    | subexp_mul LEQ expr         { Binop(Leq,$1,$3) }
+    | subexp_mul GEQ expr         { Binop(Geq,$1,$3) }
+    | subexp_mul EQUAL expr       { Binop(Equal,$1,$3) }
 ;
 
 subexp_mul:
     | subexp_div                   { $1 }
-    | subexp_div MUL subexp_mul        { mul $1 $3 }
+    | subexp_div MUL subexp_mul        { Binop(Mul,$1,$3) }
 ;
 subexp_div:
     | subexp_mod              { $1 }
-    | subexp_mod DIV subexp_div        { div $1 $3 }
+    | subexp_mod DIV subexp_div        { Binop(Div, $1,$3) }
 ;
 subexp_mod:
     | subexp_exp              { $1 }
-    | subexp_exp MOD subexp_mod        { mod_ $1 $3 }
+    | subexp_exp MOD subexp_mod        { Binop(Mod,$1,$3) }
 ;
 subexp_exp:
     | unary                        {$1}
-    | unary EXP subexp_exp         { exp $1 $3 }
+    | unary EXP subexp_exp         { Binop(Exp,$1,$3) }
 ;
 unary:
     | base                    { $1 }
-    | ABS unary               { abs $2 }
-    | NOT unary               { not_ $2 }
-    | MINUS unary             { minus $2 }
+    | ABS unary               { Uniop(Abs,$2) }
+    | NOT unary              { Uniop(Not,$2) }
+    | MINUS unary             { Uniop(Minus,$2) }
 ;
 
 base:
     | LPAREN expr RPAREN      { $2 }
-    | INT                     { Int($1) }
-    | TRUE                    { Bool(true) }
-    | FALSE                   { Bool(false) }
-    | VAR                     { Var($1) }
+    | INT                     { Node(Int($1)) }
+    | TRUE                    { Node(Bool(true)) }
+    | FALSE                   { Node(Bool(false)) }
+    | VAR                     { Node(Var($1)) }
 ;
 
