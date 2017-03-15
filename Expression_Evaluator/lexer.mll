@@ -1,5 +1,6 @@
 {
 open Parser        (* The type token is defined in parser.mli *)
+open Typefile
 exception Eof
 }
 
@@ -53,7 +54,7 @@ rule translate = parse
 | var as variable { VAR(variable) }
 | whitespace {translate lexbuf}
 | eol { EOL }
-| [^' ''\t''\n''+''-''=''*'';''^''('')''>''<''/''\\''T''F']+ as c  { Printf.printf "Invalid Token \"%s\"\n" c; translate lexbuf }
-| ['/''\\'] as c  { Printf.printf "Invalid Character \"%c\"\n" c; translate lexbuf }
+| [^' ''\t''\n''+''-''=''*'';''^''('')''>''<''/''\\''T''F']+ as c  { (failwith (Printf.sprintf "Invalid Token \"%s\"\n" c)) }
+| ['/''\\'] as c  { ( failwith (Printf.sprintf "Invalid Character \"%c\"\n" c) ) }
 | eof   { raise Eof }
 
