@@ -33,5 +33,5 @@ clean:
 submit:
 	rm -rf 2015CS10262*
 	mkdir 2015CS10262_Assignment3
-	cp parser.mly lexer.mll calc.ml typefile.ml Readme.txt Makefile calc ./2015CS10262_Assignment3/
+	cp parser.mly lexer.mll calc.ml typefile.ml README.md Makefile calc ./2015CS10262_Assignment3/
 	zip -r 2015CS10262_Assignment3 2015CS10262_Assignment3

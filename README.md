@@ -14,6 +14,6 @@
 
 ### Usage
 1. Genearate executable by running make
-2. Execute "calc" without any command line args.
+2. Execute "./calc" without any command line args.
 3. Enter any valid expression (like "5*2" ) and press enter.
 
