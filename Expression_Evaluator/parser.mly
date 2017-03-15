@@ -13,7 +13,7 @@
 /* Binary logical operator token */
 %token OR AND
 /* Binary integer operator token */
-%token ADD SUB MUL DIV MOD EXP LESS GRT LEQ GEQ EQUAL
+%token ADD SUB MUL DIV MOD LESS GRT LEQ GEQ EQUAL
 /* Parenthesis */
 %token LPAREN RPAREN
 /* End of line */
@@ -26,11 +26,8 @@
 %left EQUAL
 %left OR
 %left AND
-%left SUB
-%left ADD
-%left MUL
-%left DIV
-%left MOD
+%left SUB ADD
+%left MUL DIV MOD
 %left EXP
 %start main             /* the entry point */
 %type <Typefile.parse_tree> main
@@ -40,35 +37,25 @@ main:
     expr EOL                  { $1 }
 ;
 expr:
-    | subexp_1                  { Elepar("expr",$1) }
-    | expr ADD subexp_1         { Bipar("expr",Add,$1,$3) }
-    | expr SUB subexp_1         { Bipar("expr",Sub,$1,$3) }
-    | expr OR subexp_1          { Bipar("expr",Or,$1,$3) }
-    | expr LESS subexp_1        { Bipar("expr",Less,$1,$3) }
-    | expr GRT subexp_1         { Bipar("expr",Grt,$1,$3) }
-    | expr LEQ subexp_1         { Bipar("expr",Leq,$1,$3) }
-    | expr GEQ subexp_1         { Bipar("expr",Geq,$1,$3) }
-    | expr EQUAL subexp_1       { Bipar("expr",Equal,$1,$3) }
+    | subexp                  { Elepar("expr",$1) }
+    | expr ADD subexp         { Bipar("expr",Add,$1,$3) }
+    | expr SUB subexp         { Bipar("expr",Sub,$1,$3) }
+    | expr OR subexp          { Bipar("expr",Or,$1,$3) }
+    | expr LESS subexp        { Bipar("expr",Less,$1,$3) }
+    | expr GRT subexp         { Bipar("expr",Grt,$1,$3) }
+    | expr LEQ subexp         { Bipar("expr",Leq,$1,$3) }
+    | expr GEQ subexp         { Bipar("expr",Geq,$1,$3) }
+    | expr EQUAL subexp       { Bipar("expr",Equal,$1,$3) }
 ;
 
-subexp_1:
-    | subexp_2                   { Elepar("subexp_1",$1) }
-    | subexp_1 MUL subexp_2        { Bipar("subexp_1",Mul,$1,$3) }
-    | subexp_1 AND subexp_2         { Bipar("expr",And,$1,$3) }
-    
+subexp:
+    | unary                   { Elepar("subexp",$1) }
+    | subexp MUL unary        { Bipar("subexp",Mul,$1,$3) }
+    | subexp AND unary        { Bipar("subexp",And,$1,$3) }
+    | subexp DIV unary        { Bipar("subexp",Div, $1,$3) }
+    | subexp MOD unary        { Bipar("subexp",Mod,$1,$3) }
 ;
-subexp_2:
-    | subexp_3              { Elepar("subexp_2",$1) }
-    | subexp_2 DIV subexp_3        { Bipar("subexp_2",Div, $1,$3) }
-;
-subexp_3:
-    | subexp_4              { Elepar("subexp_3",$1) }
-    | subexp_3 MOD subexp_4        { Bipar("subexp_3",Mod,$1,$3) }
-;
-subexp_4:
-    | unary                        { Elepar("subexp_4",$1)}
-    | subexp_4 EXP unary         { Bipar("subexp_4",Exp,$1,$3) }
-;
+
 unary:
     | base                    { Elepar("unary",$1) }
     | ABS unary               { Unipar("unary",Abs,$2) }

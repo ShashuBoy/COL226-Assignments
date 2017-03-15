@@ -38,7 +38,6 @@ rule translate = parse
 | mul { MUL }
 | div { DIV }
 | mod_ { MOD }
-| exp { EXP }
 | op { LPAREN }
 | cp { RPAREN }
 | true_ { TRUE }
@@ -54,7 +53,7 @@ rule translate = parse
 | var as variable { VAR(variable) }
 | whitespace {translate lexbuf}
 | eol { EOL }
-| [^' ''\t''\n''+''-''=''*'';''^''('')''>''<''/''\\''T''F']+ as c  { (failwith (Printf.sprintf "Invalid Token \"%s\"\n" c)) }
+| [^' ''~''\t''\n''+''-''=''*''('')''>''<''/''\\''T''F']+ as c  { (failwith (Printf.sprintf "Invalid Token \"%s\"\n" c)) }
 | ['/''\\'] as c  { ( failwith (Printf.sprintf "Invalid Character \"%c\"\n" c) ) }
 | eof   { raise Eof }
 
