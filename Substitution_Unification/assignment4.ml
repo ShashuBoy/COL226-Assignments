@@ -31,11 +31,11 @@ let rec ht = function
 |   Node(sym,lst) -> List.fold_left (fun a b -> max a ((ht b) + 1)) 1 lst
 ;;
 
-(*Assuming that symbols with arity > 0 are not counted for size*)
+(*Assuming that all symbols are counted for size*)
 let rec sz acc_size = function
     V(x) -> 1+acc_size
 |   Node(sym,[]) -> 1+acc_size
-|   Node(sym,(x::xs)) -> List.fold_left (fun a b -> sz a b) acc_size (x::xs)
+|   Node(sym,(x::xs)) -> List.fold_left (fun a b -> sz a b) (acc_size+1) (x::xs)
 ;;
 
 let size x = sz 0 x;;
@@ -55,7 +55,6 @@ let rec subst sigma = function
 (* Evaluates sigma1 ( sigma2 ) *)
 let rec compose sigma1 sigma2 = fun x -> subst sigma1 (sigma2 x );;
 
-(*let identity_unifier t1 t2 = List.map (fun a ->  (a, V(a) )) ( _vars ( _vars [] t1 ) t2 ) ;;*)
 let idty_subst = fun x -> V(x) ;;
 
 let rec mgu t1 t2 = match (t1,t2) with
