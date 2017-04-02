@@ -3,27 +3,23 @@ type variable = Var of string;;
 type symbol = Sym of string;;
 type term = V of variable | Node of symbol*(term list);;
 
-let rec is_present elem = function
-    [] -> false
-|   (sym,arity)::xs -> if sym = elem then true else (is_present elem xs)
-;;
-
 let rec search_sig elem = function
     [] -> (false,(Sym(""),-1))
 |   (sym,arity)::xs -> if sym = elem then (true,(sym,arity)) else (search_sig elem xs)
 ;;
 
-(* Usage check_sig [] < Signature of Sym*int list > *)
-let rec check_sig sym_list = function
+let rec _check_sig sym_list = function
     [] -> true
-|   (Sym(sym),arity)::rest -> if (arity >= 0) && ((is_present (Sym sym) sym_list) = false) then (check_sig ((Sym sym,arity)::sym_list) rest) else false
+|   (Sym(sym),arity)::rest -> if (arity >= 0) && ((List.exists (fun sy -> sy=sym) sym_list) = false) then (_check_sig (sym::sym_list) rest) else false
 ;;
+let check_sig signature = _check_sig [] signature;;
 
 let rec wfterm signature = function
     V(x) -> true
-|   Node(s,lst) -> match (search_sig s signature) with
-                            (false,_) -> false
-                        |   (true,(symb,arity)) -> if (List.length lst) = arity then (List.for_all (wfterm signature) lst) else false
+|   Node(s,lst) -> try 
+                    let (_,arity) = List.find (fun (x,arity) -> x = s) signature in if (List.length lst) = arity then (List.for_all (wfterm signature) lst) else false
+                   with
+                    Not_found -> false
 ;;
 
 let rec ht = function
@@ -31,20 +27,16 @@ let rec ht = function
 |   Node(sym,lst) -> List.fold_left (fun a b -> max a ((ht b) + 1)) 1 lst
 ;;
 
-(*Assuming that all symbols are counted for size*)
 let rec sz acc_size = function
     V(x) -> 1+acc_size
-|   Node(sym,[]) -> 1+acc_size
-|   Node(sym,(x::xs)) -> List.fold_left (fun a b -> sz a b) (acc_size+1) (x::xs)
+|   Node(sym,lst) -> List.fold_left (fun a b -> sz a b) (acc_size+1) lst
 ;;
-
 let size x = sz 0 x;;
 
 let rec _vars lst = function
     V(x) -> if (List.exists ((fun b a -> b = a) x) lst) then lst else (x::lst)
 |   Node(sym,args) -> List.fold_left (fun a b -> _vars a b) lst args
 ;;
-
 let vars term = _vars [] term;;
 
 let rec subst sigma = function
