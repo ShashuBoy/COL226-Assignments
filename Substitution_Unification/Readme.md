@@ -10,3 +10,5 @@
 * vars return a set containing string representation of type Var
 * substituion is modelled as a function : variable -> term , as this made composing substitutions fast and easy.
 
+### Running Testcases
+Just copy and paste the code written in "testcases.ml" file in the top level ocaml interpreter.
