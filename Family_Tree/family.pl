@@ -107,37 +107,27 @@ child("Bran Stark","Catelyn Stark").
 child("Rickon Stark","Catelyn Stark").
 
 %Targaryen Couples
-married("Aerys II Targaryen","Rhaella Targaryen").
-married("Daenerys Targaryen","Drogo").
-married("Elia Martell","Rhaegar Targaryen").
+couple("Aerys II Targaryen","Rhaella Targaryen").
+couple("Daenerys Targaryen","Drogo").
+couple("Elia Martell","Rhaegar Targaryen").
 
 %Stark Couples
-married("Rickard Stark","Lyarra Stark").
-married("Eddard Stark","Catelyn Stark").
-married("Robb Stark","Talisa Stark").
-married("Tyrion Lannister","Sansa Stark").
-married("Ramsay Bolton","Sansa Stark").
-
-%reversed marriage
-married("Rhaella Targaryen","Aerys II Targaryen").
-married("Drogo","Daenerys Targaryen").
-married("Rhaegar Targaryen","Elia Martell").
-married("Lyarra Stark","Rickard Stark").
-married("Catelyn Stark","Eddard Stark").
-married("Talisa Stark","Robb Stark").
-married("Sansa Stark","Tyrion Lannister").
-married("Sansa Stark","Ramsay Bolton").
+couple("Rickard Stark","Lyarra Stark").
+couple("Eddard Stark","Catelyn Stark").
+couple("Robb Stark","Talisa Stark").
+couple("Tyrion Lannister","Sansa Stark").
+couple("Ramsay Bolton","Sansa Stark").
 
 
 %Rules
 
-%Why uncommenting this does not work???
-%married(A,B) :- married(B,A), !.
+married(A,B) :- couple(B,A).
+married(A,B) :- couple(A,B).
 
 % Why not working?
-%sibling(A,B) :- child(A,C),child(B,C),married(C,D),child(A,D),child(B,D),A\=B.
+sibling(A,B) :- child(A,C),child(B,C),male(C),married(C,D),child(A,D),child(B,D),A\=B.
 
-sibling(A,B) :- child(A,C),child(B,C),child(A,D),child(B,D),A\=B,C\=D.
+%sibling(A,B) :- child(A,C),child(B,C),child(A,D),child(B,D),A\=B,C\=D.
 
 parent(A,B) :- child(B,A).
 
@@ -164,11 +154,25 @@ granddaughter(A,B) :- grandmother(B,A),female(A).
 grandson(A,B) :- grandmother(B,A),male(A).
 grandson(A,B) :- grandfather(B,A),male(A).
 
+brother_in_law(A,B) :- male(A),sister(C,B),married(A,C).
+sister_in_law(A,B) :- female(A),brother(C,B),married(A,C).
+
+in_law(A,B) :- sibling(C,B),married(A,C).
+
 uncle(A,B) :- male(A),child(B,C) , sibling(A,C).
+uncle(A,B) :- male(A),child(B,C) , in_law(A,C).
 aunt(A,B) :- female(A),child(B,C) , sibling(A,C).
+aunt(A,B) :- female(A),child(B,C) , in_law(A,C).
 
 grandparent(A,B) :- grandfather(A,B).
 grandparent(A,B) :- grandmother(A,B).
 
 ancestor(A,B):- grandparent(A,B).
 ancestor(A,B):- parent(C,B), ancestor(A,C).
+
+first_cousin(A,B) :- parent(C,A),sibling(C,D),parent(D,B).
+
+nephew(A,B) :- male(A),parent(C,A),sibling(C,B).
+nephew(A,B) :- male(A),parent(C,A),in_law(C,B).
+neice(A,B) :- female(A),parent(C,A),sibling(C,B).
+neice(A,B) :- female(A),parent(C,A),in_law(C,B).
