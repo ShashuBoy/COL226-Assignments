@@ -37,32 +37,6 @@ female("Talisa Stark").
 female("Sansa Stark").
 female("Arya Stark").	
 
-
-%% Sibling
-    %Targaryen Sibling
-    %sibling("Aegon V Targaryen","Aerion Targaryen").
-    %sibling("Aemon Targaryen","Aegon V Targaryen").
-
-    %sibling("Duncan Targaryen","Aerys II Targaryen").
-    %sibling("Aerys II Targaryen","Rhaella Targaryen").
-    %sibling("Rhaella Targaryen","Daeron Targaryen").
-
-    %sibling("Rhaegar Targaryen","Viserys Targaryen").
-    %sibling("Viserys Targaryen","Daenerys Targaryen").
-
-    %sibling("Rhaenys Targaryen","Aegon Targaryen").
-
-    %Stark Sibling
-    %sibling("Brandon Stark","Eddard Stark").
-    %sibling("Eddard Stark","Lyanna Stark").
-    %sibling("Lyanna Stark","Benjen Stark").
-
-    %sibling("Robb Stark","Sansa Stark").
-    %sibling("Sansa Stark","Arya Stark").
-    %sibling("Arya Stark","Bran Stark").
-    %sibling("Bran Stark","Rickon Stark").
-%%
-
 %Targaryen Parent
 child("Duncan Targaryen","Aegon V Targaryen").
 child("Aerys II Targaryen","Aegon V Targaryen").
