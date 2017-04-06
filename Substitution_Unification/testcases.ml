@@ -9,6 +9,11 @@ let t7 = ( Node( Sym("a") , [V(Var("y")) ; V(Var("z"))] ) );;
 let t8 = ( Node( Sym("b") , [V(Var("y")) ; V(Var("z"))] ) );;
 let t9 = ( Node( Sym("a") , [] ) );;
 let t0 = ( Node( Sym("b") , [] ) );;
+let t11 = ( Node( Sym("p") , [ Node(Sym("a"),[V(Var("x"));V(Var("x"))]) ; V(Var("y"))] ) );;
+let t12 = ( Node( Sym("p") , [ Node(Sym("a"),[V(Var("a"));V(Var("Z"))]) ; V(Var("b"))] ) );;
+
+let t13 = (Node (Sym("f"), [Node(Sym("a"),[]);Node( Sym("b"),[ (V(Var("var2"))) ; Node(Sym("c"),[Node(Sym("d"),[])])] ) ] ));;
+let t14 = (Node (Sym("f"), [V(Var("var1"));Node( Sym("b"),[ (V(Var("var2"))) ; Node(Sym("c"),[V(Var("var3"))])] ) ] ));;
 
 let sig1 = [(Sym("x"),2)];;
 let sig2 = [(Sym("x"),-2)];;
@@ -89,3 +94,8 @@ print_subst t9 t9 x;;
 let x = mgu t0 t9 in
 print_subst t0 t9 x;;
 
+let x = mgu t11 t12 in
+print_subst t11 t12 x;;
+
+let x = mgu t13 t14 in
+print_subst t13 t14 x;;
