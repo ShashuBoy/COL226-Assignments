@@ -10,6 +10,7 @@ male("Viserys Targaryen").
 male("Aegon Targaryen").
 male("Rhaego").
 male("Drogo").
+male("Maekar Targaryen").
 
 %Stark Males
 male("Rickard Stark").
@@ -29,6 +30,7 @@ female("Rhaella Targaryen").
 female("Elia Martell").
 female("Daenerys Targaryen").
 female("Unknown Targaryen Queen").
+female("Dyanna Dayne").
 
 %Stark Females
 female("Catelyn Stark").
@@ -40,6 +42,14 @@ female("Arya Stark").
 female("Unknown_Jon_Mother").
 
 %Targaryen Parent
+child("Aegon V Targaryen","Maekar Targaryen").
+child("Aerion Targaryen","Maekar Targaryen").
+child("Aemon Targaryen","Maekar Targaryen").
+
+child("Aegon V Targaryen","Dyanna Dayne").
+child("Aerion Targaryen","Dyanna Dayne").
+child("Aemon Targaryen","Dyanna Dayne").
+
 child("Duncan Targaryen","Aegon V Targaryen").
 child("Aerys II Targaryen","Aegon V Targaryen").
 child("Rhaella Targaryen","Aegon V Targaryen").
@@ -102,7 +112,7 @@ couple("Eddard Stark","Catelyn Stark").
 couple("Robb Stark","Talisa Stark").
 couple("Tyrion Lannister","Sansa Stark").
 couple("Ramsay Bolton","Sansa Stark").
-couple("Eddard Stark","Unknown_Jon_Mother").
+couple("Maekar Targaryen","Dyanna Dayne").
 
 %Rules
 
