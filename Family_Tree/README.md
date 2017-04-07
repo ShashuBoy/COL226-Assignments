@@ -1,7 +1,7 @@
 # Assignment 5: Relations in Prolog.
 #### *Submitted by - Suyash Agrawal (2015CS10262)*
 
-Relation were construction on Stark and Targaryen Families from a Fantasy Fiction named Game of Thrones.
+Relation were defined on Stark and Targaryen Families from a Fantasy Fiction named Game of Thrones.
 
 Relations Defined:
 * brother
