@@ -28,6 +28,7 @@ female("Rhaenys Targaryen").
 female("Rhaella Targaryen").
 female("Elia Martell").
 female("Daenerys Targaryen").
+female("Unknown Targaryen Queen").
 
 %Stark Females
 female("Catelyn Stark").
@@ -35,13 +36,20 @@ female("Lyanna Stark").
 female("Lyarra Stark").
 female("Talisa Stark").
 female("Sansa Stark").
-female("Arya Stark").	
+female("Arya Stark").
+female("Unknown_Jon_Mother").
 
 %Targaryen Parent
 child("Duncan Targaryen","Aegon V Targaryen").
 child("Aerys II Targaryen","Aegon V Targaryen").
 child("Rhaella Targaryen","Aegon V Targaryen").
 child("Daeron Targaryen","Aegon V Targaryen").
+
+child("Duncan Targaryen","Unknown Targaryen Queen").
+child("Aerys II Targaryen","Unknown Targaryen Queen").
+child("Rhaella Targaryen","Unknown Targaryen Queen").
+child("Daeron Targaryen","Unknown Targaryen Queen").
+
 child("Rhaegar Targaryen","Aerys II Targaryen").
 child("Viserys Targaryen","Aerys II Targaryen").
 child("Daenerys Targaryen","Aerys II Targaryen").
@@ -73,6 +81,7 @@ child("Bran Stark","Eddard Stark").
 child("Rickon Stark","Eddard Stark").
 % Controversial
 child("Jon Snow","Eddard Stark").
+child("Jon Snow","Unknown_Jon_Mother").
 
 child("Robb Stark","Catelyn Stark").
 child("Sansa Stark","Catelyn Stark").
@@ -84,6 +93,8 @@ child("Rickon Stark","Catelyn Stark").
 couple("Aerys II Targaryen","Rhaella Targaryen").
 couple("Daenerys Targaryen","Drogo").
 couple("Elia Martell","Rhaegar Targaryen").
+couple("Aegon V Targaryen","Unknown Targaryen Queen").
+
 
 %Stark Couples
 couple("Rickard Stark","Lyarra Stark").
@@ -91,17 +102,14 @@ couple("Eddard Stark","Catelyn Stark").
 couple("Robb Stark","Talisa Stark").
 couple("Tyrion Lannister","Sansa Stark").
 couple("Ramsay Bolton","Sansa Stark").
-
+couple("Eddard Stark","Unknown_Jon_Mother").
 
 %Rules
 
 married(A,B) :- couple(B,A).
 married(A,B) :- couple(A,B).
 
-% Why not working?
 sibling(A,B) :- child(A,C),child(B,C),male(C),married(C,D),child(A,D),child(B,D),A\=B.
-
-%sibling(A,B) :- child(A,C),child(B,C),child(A,D),child(B,D),A\=B,C\=D.
 
 parent(A,B) :- child(B,A).
 
@@ -141,12 +149,33 @@ aunt(A,B) :- female(A),child(B,C) , in_law(A,C).
 grandparent(A,B) :- grandfather(A,B).
 grandparent(A,B) :- grandmother(A,B).
 
-ancestor(A,B):- grandparent(A,B).
+ancestor(A,B):- parent(A,B).
 ancestor(A,B):- parent(C,B), ancestor(A,C).
-
-first_cousin(A,B) :- parent(C,A),sibling(C,D),parent(D,B).
+descendant(A,B) :- ancestor(B,A).
+first_cousin(A,B) :- parent(C,A),sibling(C,D),parent(D,B),A\=B.
 
 nephew(A,B) :- male(A),parent(C,A),sibling(C,B).
-nephew(A,B) :- male(A),parent(C,A),in_law(C,B).
 neice(A,B) :- female(A),parent(C,A),sibling(C,B).
-neice(A,B) :- female(A),parent(C,A),in_law(C,B).
+
+half_sibling(A,B) :- child(A,P1),child(B,P1),child(A,P2),child(B,P3),P2\=P3,P1\=P2,P1\=P3.
+
+relation(A,B,"married") :- married(A,B).
+relation(A,B,"brother") :- brother(A,B).
+relation(A,B,"sister") :- sister(A,B).
+relation(A,B,"father") :- father(A,B).
+relation(A,B,"mother") :- mother(A,B).
+relation(A,B,"bastard") :- bastard(A,B).
+relation(A,B,"ancestor") :- ancestor(A,B).
+relation(A,B,"descendant") :- descendant(A,B).
+relation(A,B,"nephew") :- nephew(A,B).
+relation(A,B,"neice") :- neice(A,B).
+relation(A,B,"uncle") :- uncle(A,B).
+relation(A,B,"aunt") :- aunt(A,B).
+relation(A,B,"half_sibling") :- half_sibling(A,B).
+relation(A,B,"first_cousin") :- first_cousin(A,B).
+relation(A,B,"brother_in_law") :- brother_in_law(A,B).
+relation(A,B,"sister_in_law") :- sister_in_law(A,B).
+
+% References - http://gameofthrones.wikia.com/wiki/House_Targaryen
+%              http://gameofthrones.wikia.com/wiki/House_Stark
+
