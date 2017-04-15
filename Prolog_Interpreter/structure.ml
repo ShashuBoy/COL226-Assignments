@@ -138,12 +138,12 @@ let print_ans var unif = SS.iter (fun a -> Printf.printf "%s - " a ; print_term 
 
 
 
-let rec solve var unifier program goals = match goals with
-  [] -> (print_ans var unifier;flush Pervasives.stdout; if (continue_answer () ) then False else True unifier)
+let rec solve is_neg var unifier program goals = match goals with
+  [] -> if(is_neg) then True unifier else (print_ans var unifier;flush Pervasives.stdout; if (continue_answer () ) then False else True unifier)
 | (Atom (Sym("$eq"),[t1;t2]) ) :: g_tail -> (
                         try
                           let unif2 = (compose (mgu (subst unifier t1) (subst unifier t2)) unifier)
-                          in solve var unif2 program g_tail
+                          in solve is_neg var unif2 program g_tail
                         with
                           NOT_UNIFIABLE -> False
                         )
@@ -152,16 +152,16 @@ let rec solve var unifier program goals = match goals with
                           let _ = (compose (mgu (subst unifier t1) (subst unifier t2)) unifier)
                           in False
                         with
-                          NOT_UNIFIABLE -> solve var unifier program g_tail
+                          NOT_UNIFIABLE -> solve is_neg var unifier program g_tail
                         )
 | (Atom (Sym("$not"),[Node(t1)]) ) :: g_tail -> (
-                                            match (solve var unifier program (t1::g_tail)) with 
-                                              False -> solve var unifier program g_tail
+                                            match (solve (not is_neg) var unifier program (t1::g_tail)) with 
+                                              False -> solve is_neg var unifier program g_tail
                                             | True _ -> False
                                           )
-| g_head :: g_tail -> find_feasible (fun clause -> try (solve_clause var unifier program goals clause) with NOT_UNIFIABLE -> False ) (modify_prog [] program)
+| g_head :: g_tail -> find_feasible (fun clause -> try (solve_clause is_neg var unifier program goals clause) with NOT_UNIFIABLE -> False ) (modify_prog [] program)
 
-and solve_clause var unifier program (g_1::g_rest) clause = match clause with
-  Fact (Head atm) -> let unif2 = (compose (mgu_atm (subst_atm unifier atm) (subst_atm unifier g_1)) unifier ) in solve var unif2 program g_rest
-| Rule ((Head atm),(Body atm_list)) -> let unif2 = (compose (mgu_atm (subst_atm unifier atm) (subst_atm unifier g_1)) unifier ) in solve var unif2 program (g_rest @ atm_list)
+and solve_clause is_neg var unifier program (g_1::g_rest) clause = match clause with
+  Fact (Head atm) -> let unif2 = (compose (mgu_atm (subst_atm unifier atm) (subst_atm unifier g_1)) unifier ) in solve is_neg var unif2 program g_rest
+| Rule ((Head atm),(Body atm_list)) -> let unif2 = (compose (mgu_atm (subst_atm unifier atm) (subst_atm unifier g_1)) unifier ) in solve is_neg var unif2 program (g_rest @ atm_list)
 ;;

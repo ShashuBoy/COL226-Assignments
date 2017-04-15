@@ -13,7 +13,7 @@ let handle_query prog str =
   let lexbuf = Lexing.from_string str in
   let goals = Parser.goal Lexer.translate lexbuf in
   let vars = List.fold_left (fun a b -> Structure.vars_atm a b) SS.empty goals in
-  let ans = Structure.solve vars (Structure.idty_subst) prog goals in match ans with
+  let ans = Structure.solve false vars (Structure.idty_subst) prog goals in match ans with
     Structure.False -> Printf.printf "false\n"
   | Structure.True sub -> Printf.printf "true\n"
 ;;
