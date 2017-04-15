@@ -101,7 +101,7 @@ let rec find_feasible fn = function
 *)
 
 let rec modify_prog program = function
-  [] -> program
+  [] -> List.rev program
 | cl :: tl -> modify_prog ((modify_clause cl)::program) tl
 and modify_clause = function
 | Fact ( Head atm ) -> (Fact (Head (modify_atm atm)) )

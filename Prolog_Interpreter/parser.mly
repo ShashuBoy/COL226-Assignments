@@ -45,6 +45,7 @@ atom:
   | CONS O_PAREN term_list C_PAREN         { Atom(Sym($1),$3) }
   | term EQUAL term                        { Atom(Sym("$eq"),[$1;$3]) }
   | term NOT_EQUAL term                    { Atom(Sym("$neq"),[$1;$3]) }
+  | O_PAREN atom C_PAREN                   { $2 }
 ;
 
 atom_list:
@@ -61,4 +62,5 @@ term:
   | VAR                    { Var($1) }
   | CONS                   { Cons($1) }
   | atom                   { Node($1) }
+  /*| O_PAREN term C_PAREN                   { $2 }  */
 ;
