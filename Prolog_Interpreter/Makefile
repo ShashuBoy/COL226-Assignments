@@ -1,17 +1,17 @@
 all: lexer.cmo parser.cmo prolog.cmo structure.cmo
-	ocamlc -o prolog structure.cmo lexer.cmo parser.cmo prolog.cmo
+	ocamlc -g -o prolog unix.cma structure.cmo lexer.cmo parser.cmo prolog.cmo
 
 lexer.cmo: lexer.ml parser.cmi
-	ocamlc -c lexer.ml
+	ocamlc -g -c lexer.ml
 
 parser.cmo: parser.ml parser.cmi
-	ocamlc -c parser.ml
+	ocamlc -g -c parser.ml
 
 prolog.cmo: prolog.ml
-	ocamlc -c prolog.ml
+	ocamlc -g -c prolog.ml
 
 parser.cmi: parser.mli
-	ocamlc -c parser.mli
+	ocamlc -g -c parser.mli
 
 lexer.ml: lexer.mll
 	ocamllex lexer.mll       # generates lexer.ml
@@ -23,7 +23,7 @@ parser.ml: parser.mly
 	ocamlyacc parser.mly     # generates parser.ml and parser.mli
 
 structure.cmo: structure.ml
-	ocamlc -c structure.ml
+	ocamlc -g -c structure.ml
 
 clean:
 	rm -f *.cm*

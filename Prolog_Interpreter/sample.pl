@@ -1,12 +1,18 @@
 male(suyash).
 male(suman).
+male(sun).
+male(suma).
 female(foo).
 boy(X) :- male(X).
-
 couple(shun,dan).
+couple(shun,shun).
 
-married(A,B) :- couple(B,A).
-married(A,B) :- couple(A,B).
+married(A,B) :- couple(B,A),not(A\=B).
+married(A,B) :- couple(A,B),not(A\=B).
+
+dit(A,B) :- couple(A,B),not(A=B).
+
+sibling(A,B) :- child(A,C),child(B,C),male(C),married(C,D),child(A,D),child(B,D),A\=B.
 
 parent(A,B) :- child(B,A).
 

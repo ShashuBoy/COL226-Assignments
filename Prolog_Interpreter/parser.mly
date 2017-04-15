@@ -15,7 +15,12 @@
 %token EOL
 %token WHITESPACE
 %token EOF
+%token EQUAL
+%token NOT_EQUAL
+%token NOT
 
+%nonassoc EQUAL
+%nonassoc NOT_EQUAL
 %start main
 %start goal
 %type <Structure.program> main
@@ -36,7 +41,10 @@ clause:
 ;
 
 atom:
+  | NOT O_PAREN atom C_PAREN               { Atom(Sym("$not"),[Node($3)]) }
   | CONS O_PAREN term_list C_PAREN         { Atom(Sym($1),$3) }
+  | term EQUAL term                        { Atom(Sym("$eq"),[$1;$3]) }
+  | term NOT_EQUAL term                    { Atom(Sym("$neq"),[$1;$3]) }
 ;
 
 atom_list:

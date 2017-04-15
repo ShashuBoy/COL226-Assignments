@@ -5,6 +5,9 @@
 
 let end = '.'
 let sep = ":-"
+let equal = "="
+let not_equal = ("\\=" | "\\==")
+let not = ("not")
 let var = (['A'-'Z']['a'-'z''A'-'Z''0'-'9''_']*)
 let cons = (['a'-'z']['a'-'z''A'-'Z''0'-'9''_']*)
 let comma = ','
@@ -19,8 +22,11 @@ let whitespace = [' ''\t']
 rule translate = parse
 | end   {(*let () = Printf.printf "END\n" in *) END}
 | sep   {(*let () = Printf.printf "SEP\n" in *) SEP}
+| not   {(*let () = Printf.printf "COMMA\n" in *) NOT}
 | var as variable   {(*let () = Printf.printf "VAR(variable)\n" in *) VAR(variable)}
 | cons as const   {(*let () = Printf.printf "CONS(const)\n" in *) CONS(const)}
+| equal   {(*let () = Printf.printf "CONS(const)\n" in *) EQUAL}
+| not_equal   {(*let () = Printf.printf "CONS(const)\n" in *) NOT_EQUAL}
 | comma   {(*let () = Printf.printf "COMMA\n" in *) COMMA}
 | o_paren   {(*let () = Printf.printf "O_PAREN\n" in *) O_PAREN}
 | c_paren   {(*let () = Printf.printf "C_PAREN\n" in *) C_PAREN}
