@@ -185,6 +185,11 @@ father(X,Y):-		male(X),child(Y,X).
 
 mother(X,Y):-		female(X),child(Y,X).
 
+ts(X,Y):-	mother(Z,X),						%%%%%%%%%%%%  Both parents common.
+					mother(Z,Y),
+					father(W,X),
+					father(W,Y).
+
 truesibling(X,Y):-	mother(Z,X),						%%%%%%%%%%%%  Both parents common.
 					mother(Z,Y),
 					father(W,X),

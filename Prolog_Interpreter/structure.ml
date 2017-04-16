@@ -130,11 +130,11 @@ let get1char () =
     Unix.tcsetattr Unix.stdin Unix.TCSADRAIN termio;
     res
 
-let rec continue_answer () = let ch = get1char() in let () = Printf.printf "\n" in if ch = ';' then true else if ch = '.' then false else
+let rec continue_answer () = let () = flush Pervasives.stdout in let ch = get1char() in let () = Printf.printf "\n" in let () = flush Pervasives.stdout in if ch = ';' then true else if ch = '.' then false else
    let () = Printf.printf "Unrecognized option.\nEnter \';\' to continue backtracking \nor enter \'.\' to terminate." in let () = flush Pervasives.stdout in continue_answer()
 ;;
 let print_term trm = Printf.printf "%s " (string_of_term trm);;
-let print_ans var unif = SS.iter (fun a -> Printf.printf "%s - " a ; print_term (unif a) ) var
+let print_ans var unif = SS.iter (fun a -> Printf.printf "%s = " a ; print_term (unif a) ; Printf.printf " | " ) var
 
 
 
@@ -159,9 +159,11 @@ let rec solve is_neg var unifier program goals = match goals with
                                               False -> solve is_neg var unifier program g_tail
                                             | True _ -> False
                                           )
-| g_head :: g_tail -> find_feasible (fun clause -> try (solve_clause is_neg var unifier program goals clause) with NOT_UNIFIABLE -> False ) (modify_prog [] program)
+| g_head :: g_tail -> 
+            let new_prog = (modify_prog [] program) in
+            find_feasible (fun clause -> try (solve_clause is_neg var unifier new_prog goals clause) with NOT_UNIFIABLE -> False ) new_prog
 
 and solve_clause is_neg var unifier program (g_1::g_rest) clause = match clause with
   Fact (Head atm) -> let unif2 = (compose (mgu_atm (subst_atm unifier atm) (subst_atm unifier g_1)) unifier ) in solve is_neg var unif2 program g_rest
-| Rule ((Head atm),(Body atm_list)) -> let unif2 = (compose (mgu_atm (subst_atm unifier atm) (subst_atm unifier g_1)) unifier ) in solve is_neg var unif2 program (g_rest @ atm_list)
+| Rule ((Head atm),(Body atm_list)) -> let unif2 = (compose (mgu_atm (subst_atm unifier atm) (subst_atm unifier g_1)) unifier ) in solve is_neg var unif2 program (atm_list @ g_rest)
 ;;
