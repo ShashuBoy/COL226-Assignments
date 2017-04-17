@@ -11,34 +11,32 @@ type clause = Fact of head | Rule of head * body;;
 type program = clause list;;
 type 'a answer = True of 'a | False;;
 
+exception NOT_WELLFORMED;;
 exception NOT_UNIFIABLE;;
 module SS = Set.Make(String);;
 
-let rec _check_sig sym_list = function
-    [] -> true
-|   (Sym(sym),arity)::rest -> if (arity >= 0) && ((List.exists (fun sy -> sy=sym) sym_list) = false) then (_check_sig (sym::sym_list) rest) else false
-;;
-let check_sig signature = _check_sig [] signature;;
-
-let rec wfterm signature = function
-    Var(x) -> true
-|   Cons(x) -> true
-|   Node(Atom(s,lst)) -> try let (_,arity) = List.find (fun (x,arity) -> x = s) signature in if (List.length lst) = arity then (List.for_all (wfterm signature) lst) else false
-                   with Not_found -> false
+let rec find_arity sym = function
+  [] -> raise Not_found
+| (sy,arity)::tl -> if sy = sym then arity else find_arity sym tl
 ;;
 
-let rec ht = function
-    Var(x) -> 1
-|   Cons(x) -> 1
-|   Node(Atom(sym,lst)) -> List.fold_left (fun a b -> max a ((ht b) + 1)) 1 lst
+let rec wfatm signature (Atom (sy,trm_lst)) = let lst_len = List.length trm_lst in
+                                   let (new_sig,arity) = try (signature,(find_arity sy signature)) with Not_found -> (((sy,lst_len)::signature),lst_len) in
+                                   if (arity <> lst_len) then raise NOT_WELLFORMED else List.fold_left (fun sign trm -> wfterm sign trm ) new_sig trm_lst 
+and wfterm signature = function
+  Var (str) -> signature
+| Cons (str) -> signature
+| Node (atm) -> wfatm signature atm
 ;;
 
-let rec sz acc_size = function
-    Var(x) -> 1+acc_size
-|   Cons(x) -> 1+acc_size
-|   Node(Atom(sym,lst)) -> List.fold_left (fun a b -> sz a b) (acc_size+1) lst
+let rec wfprog signature = function
+  [] -> true
+| hd::tl -> (
+              match hd with
+                Fact (Head atm) -> wfprog (wfatm signature atm) tl
+              | Rule ((Head atm),(Body atm_list)) -> wfprog (wfatm signature atm) ((List.map (fun x -> (Fact (Head x))) atm_list)@tl)
+            )
 ;;
-let size x = sz 0 x;;
 
 let rec _vars set = function
     Var(x) -> SS.add x set
