@@ -32,6 +32,6 @@ clean:
 
 submit:
 	rm -rf 2015CS10262*
-	mkdir 2015CS10262_Assignment3
-	cp parser.mly lexer.mll prolog.ml structure.ml README.md Makefile prolog ./2015CS10262_Assignment3/
-	zip -r 2015CS10262_Assignment3 2015CS10262_Assignment3
+	mkdir 2015CS10262_Assignment6
+	cp parser.mly lexer.mll *.ml *.pl README.md Makefile prolog ./2015CS10262_Assignment6/
+	zip -r 2015CS10262_Assignment6 2015CS10262_Assignment6
