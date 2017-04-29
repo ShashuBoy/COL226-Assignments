@@ -1,0 +1,6 @@
+#load "lexer.cmo";;
+#load "parser.cmo";;
+
+let decl = open_in "test_prog.ml";;
+let lexbuf = Lexing.from_channel decl;;
+let prog = Parser.main Lexer.translate lexbuf;;
