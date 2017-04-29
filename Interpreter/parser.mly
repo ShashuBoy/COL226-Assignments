@@ -26,6 +26,10 @@
 %token ADD_
 %token SUB_
 %token MUL_
+%token LESS_
+%token GRT_
+%token LESS_EQ_
+%token GRT_EQ_
 
 %token NOT_EQUAL_
 %token NOT_
@@ -33,6 +37,7 @@
 %token WHITESPACE_
 %token EOF
 
+%left LESS_EQ_ GRT_EQ_ LESS_ GRT_
 %left OR_ AND_
 %left ADD_ SUB_
 %left MUL_
@@ -61,6 +66,10 @@ expression:
   | expression EQUAL_ expression    {($1)@($3)@[EQUAL]}
   | expression OR_ expression       {($1)@($3)@[OR]}
   | expression AND_ expression      {($1)@($3)@[AND]}
+  | expression LESS_ expression     {($1)@($3)@[LESS]}
+  | expression GRT_ expression      {($1)@($3)@[GRT]}
+  | expression LESS_EQ_ expression  {($1)@($3)@[LESS_EQ]}
+  | expression GRT_EQ_ expression   {($1)@($3)@[GRT_EQ]}
   | function                        { $1 }
   | IF_ O_PAREN_ expression C_PAREN_ THEN_ O_PAREN_ expression C_PAREN_ ELSE_ O_PAREN_ expression C_PAREN_ {($3)@[ ( IF_THEN_ELSE ( ($7) , ($11) ) ) ]}
   | VAR_ O_PAREN_ expression C_PAREN_ { ($3)@([ACCESS( Var($1) )])@[APPLY] }

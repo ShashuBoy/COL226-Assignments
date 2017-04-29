@@ -23,6 +23,10 @@ let and_ = "&&"
 let mul_ = "*"
 let add_ = "+"
 let sub_ = "-"
+let less_ = "<"
+let grt_ = ">"
+let less_eq_ = "<="
+let grt_eq_ = ">="
 let arrow = "->"
 let whitespace = [' ''\t']+
 let eol = '\n'
@@ -54,6 +58,10 @@ rule translate = parse
 | mul_              {(*let () = Printf.printf "MUL_\n" in *) MUL_}
 | add_              {(*let () = Printf.printf "ADD_\n" in *) ADD_}
 | sub_              {(*let () = Printf.printf "SUB_\n" in *) SUB_}
+| less_             {(*let () = Printf.printf "LESS_\n" in *) LESS_ }
+| grt_              {(*let () = Printf.printf "LESS_\n" in *) GRT_ }
+| less_eq_          {(*let () = Printf.printf "LESS_\n" in *) LESS_EQ_ }
+| grt_eq_           {(*let () = Printf.printf "LESS_\n" in *) GRT_EQ_ }
 | eol               {(*let () = Printf.printf "NEWLINE \n" in *) translate lexbuf }
 | whitespace        {(*let () = Printf.printf "Whitespace \n" in *) translate lexbuf }
 | eof               {(*let () = Printf.printf "EOF \n" in *) EOF }

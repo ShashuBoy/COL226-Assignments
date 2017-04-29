@@ -9,5 +9,3 @@ x+ if(y=false) then (3) else (4);;*)
 let f1 = func x -> (func y -> (x + y) );;
 let f2 = f1 ( 2 );;
 let f3 = f1 ( 9 );;
-f2(9);;
-f3(20);;

@@ -7,6 +7,23 @@ let add stk = match stk with
 | _ -> failwith "Wrong Stack"
 ;;
 
+let less stk = match stk with
+  (VCL_INT y )::(VCL_INT x :: tl) -> (VCL_BOOL (x<y))::tl
+| _ -> failwith "Wrong Stack"
+;;
+let grt stk = match stk with
+  (VCL_INT y )::(VCL_INT x :: tl) -> (VCL_BOOL (x>y))::tl
+| _ -> failwith "Wrong Stack"
+;;
+let less_eq stk = match stk with
+  (VCL_INT y )::(VCL_INT x :: tl) -> (VCL_BOOL (x<=y))::tl
+| _ -> failwith "Wrong Stack"
+;;
+let grt_eq stk = match stk with
+  (VCL_INT y )::(VCL_INT x :: tl) -> (VCL_BOOL (x>=y))::tl
+| _ -> failwith "Wrong Stack"
+;;
+
 let sub stk = match stk with
   (VCL_INT y )::(VCL_INT x :: tl) -> (VCL_INT (x-y))::tl
 | _ -> failwith "Wrong Stack"
@@ -72,6 +89,10 @@ let rec interpret_secd oplist env stk dmp = match oplist with
 | (BOOL i) :: tl -> interpret_secd tl env ((VCL_BOOL i)::stk) dmp
 | (ADD ) :: tl -> interpret_secd tl env (add stk) dmp
 | (SUB ) :: tl -> interpret_secd tl env (sub stk) dmp
+| (LESS ) :: tl -> interpret_secd tl env (less stk) dmp
+| (GRT ) :: tl -> interpret_secd tl env (grt stk) dmp
+| (LESS_EQ ) :: tl -> interpret_secd tl env (less_eq stk) dmp
+| (GRT_EQ ) :: tl -> interpret_secd tl env (grt_eq stk) dmp
 | (OR ) :: tl -> interpret_secd tl env (_or stk) dmp
 | (AND ) :: tl -> interpret_secd tl env (_and stk) dmp
 | (MUL ) :: tl -> interpret_secd tl env (mul stk) dmp

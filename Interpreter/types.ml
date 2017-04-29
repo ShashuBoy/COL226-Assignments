@@ -2,6 +2,7 @@ type variable = Var of string;;
 type opcode = INTEGER of int
               | BOOL of bool 
               | ADD | SUB | OR | AND | EQUAL | MUL
+              | LESS | GRT | LESS_EQ | GRT_EQ
               | LET of variable | ENDLET 
               | APPLY | RETURN 
               | CLOSURE of (opcode list) 
