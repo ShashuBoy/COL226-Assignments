@@ -25,7 +25,7 @@ type token =
 open Parsing;;
 let _ = parse_error;;
 # 2 "parser.mly"
-  open Interpreter_secd
+  open Types
   open Printf
 # 31 "parser.ml"
 let yytransl_const = [|
@@ -207,139 +207,139 @@ let yyact = [|
 # 49 "parser.mly"
                            ( [] )
 # 210 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 2 : Interpreter_secd.opcode list) in
-    let _3 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 2 : Types.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 50 "parser.mly"
                                     ( (_1)@(_3) )
 # 218 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
     let _2 = (Parsing.peek_val __caml_parser_env 2 : string) in
-    let _4 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _4 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 54 "parser.mly"
                                      ((_4)@[LET( Var(_2) )])
 # 226 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : int) in
     Obj.repr(
 # 55 "parser.mly"
                                     ([INTEGER(_1)])
 # 233 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : bool) in
     Obj.repr(
 # 56 "parser.mly"
                                     ([BOOL(_1)])
 # 240 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
     Obj.repr(
 # 57 "parser.mly"
                                     ([ACCESS( Var(_1) )])
 # 247 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 2 : Interpreter_secd.opcode list) in
-    let _3 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 2 : Types.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 58 "parser.mly"
                                     ((_1)@(_3)@[MUL])
 # 255 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 2 : Interpreter_secd.opcode list) in
-    let _3 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 2 : Types.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 59 "parser.mly"
                                     ((_1)@(_3)@[ADD])
 # 263 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 2 : Interpreter_secd.opcode list) in
-    let _3 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 2 : Types.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 60 "parser.mly"
                                     ((_1)@(_3)@[SUB])
 # 271 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 2 : Interpreter_secd.opcode list) in
-    let _3 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 2 : Types.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 61 "parser.mly"
                                     ((_1)@(_3)@[EQUAL])
 # 279 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 2 : Interpreter_secd.opcode list) in
-    let _3 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 2 : Types.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 62 "parser.mly"
                                     ((_1)@(_3)@[OR])
 # 287 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 2 : Interpreter_secd.opcode list) in
-    let _3 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 2 : Types.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 63 "parser.mly"
                                     ((_1)@(_3)@[AND])
 # 295 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 0 : Types.opcode list) in
     Obj.repr(
 # 64 "parser.mly"
                                     ( _1 )
 # 302 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _3 = (Parsing.peek_val __caml_parser_env 9 : Interpreter_secd.opcode list) in
-    let _7 = (Parsing.peek_val __caml_parser_env 5 : Interpreter_secd.opcode list) in
-    let _11 = (Parsing.peek_val __caml_parser_env 1 : Interpreter_secd.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 9 : Types.opcode list) in
+    let _7 = (Parsing.peek_val __caml_parser_env 5 : Types.opcode list) in
+    let _11 = (Parsing.peek_val __caml_parser_env 1 : Types.opcode list) in
     Obj.repr(
 # 65 "parser.mly"
                                                                                                            ((_3)@[ ( IF_THEN_ELSE ( (_7) , (_11) ) ) ])
 # 311 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 3 : string) in
-    let _3 = (Parsing.peek_val __caml_parser_env 1 : Interpreter_secd.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 1 : Types.opcode list) in
     Obj.repr(
 # 66 "parser.mly"
                                       ( (_3)@([ACCESS( Var(_1) )])@[APPLY] )
 # 319 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 3 : Interpreter_secd.opcode list) in
-    let _3 = (Parsing.peek_val __caml_parser_env 1 : Interpreter_secd.opcode list) in
+    let _1 = (Parsing.peek_val __caml_parser_env 3 : Types.opcode list) in
+    let _3 = (Parsing.peek_val __caml_parser_env 1 : Types.opcode list) in
     Obj.repr(
 # 67 "parser.mly"
                                           ( (_3)@(_1)@[APPLY] )
 # 327 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : Interpreter_secd.opcode list) in
+    let _2 = (Parsing.peek_val __caml_parser_env 1 : Types.opcode list) in
     Obj.repr(
 # 68 "parser.mly"
                                     ( _2 )
 # 334 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 ; (fun __caml_parser_env ->
     let _2 = (Parsing.peek_val __caml_parser_env 4 : string) in
-    let _5 = (Parsing.peek_val __caml_parser_env 1 : Interpreter_secd.opcode list) in
+    let _5 = (Parsing.peek_val __caml_parser_env 1 : Types.opcode list) in
     Obj.repr(
 # 72 "parser.mly"
                                                         ([ CLOSURE( [LET( Var(_2) )] @ (_5) @ [RETURN] ) ])
 # 342 "parser.ml"
-               : Interpreter_secd.opcode list))
+               : Types.opcode list))
 (* Entry main *)
 ; (fun __caml_parser_env -> raise (Parsing.YYexit (Parsing.peek_val __caml_parser_env 0)))
 |]
@@ -361,4 +361,4 @@ let yytables =
     Parsing.names_const=yynames_const;
     Parsing.names_block=yynames_block }
 let main (lexfun : Lexing.lexbuf -> token) (lexbuf : Lexing.lexbuf) =
-   (Parsing.yyparse yytables 1 lexfun lexbuf : Interpreter_secd.opcode list)
+   (Parsing.yyparse yytables 1 lexfun lexbuf : Types.opcode list)

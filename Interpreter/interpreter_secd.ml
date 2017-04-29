@@ -1,18 +1,6 @@
 open Printf;;
-type variable = Var of string;;
-type opcode = INTEGER of int
-              | BOOL of bool 
-              | ADD | SUB | OR | AND | EQUAL | MUL
-              | LET of variable | ENDLET 
-              | APPLY | RETURN 
-              | CLOSURE of (opcode list) 
-              | ACCESS of variable 
-              | IF_THEN_ELSE of ((opcode list) * (opcode list))
-;;
-type closure = VCL_INT of int| VCL_BOOL of bool | CL of environment * (opcode list) and
-environment = (variable * closure) list;;
-type stack = closure list;;
-type dump = (environment * (opcode list)) list;;
+open Types;;
+
 
 let add stk = match stk with
   (VCL_INT x )::(VCL_INT y :: tl) -> (VCL_INT (x+y))::tl
@@ -104,3 +92,15 @@ let fnc_call = [INTEGER(4);ACCESS(func_call);APPLY];;
 let bind_x = [LET(x)];;
 let add_x_y = [ACCESS(x);ACCESS(y);ADD];;
 let prog = y_44@fn_decl@y_99@fnc_call@bind_x@add_x_y;;
+
+let solve fl_name = 
+  let decl = open_in fl_name in
+  let lexbuf = Lexing.from_channel decl in
+  let prog = Parser.main Lexer.translate lexbuf in
+  interpret_secd prog [] [] []
+;;
+
+let main () = ()
+;;
+
+if !Sys.interactive then () else main ();;

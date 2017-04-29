@@ -1,10 +1,11 @@
 all: interpreter_secd.ml lexer.mll parser.mly
-	ocamlc -c interpreter_secd.ml
+	ocamlc -c types.ml
 	ocamlyacc parser.mly
 	ocamllex lexer.mll
 	ocamlc -c parser.mli
 	ocamlc -c lexer.ml
 	ocamlc -c parser.ml
+	ocamlc -c interpreter_secd.ml
 
 clean:
 	rm -rf ./*.cmo

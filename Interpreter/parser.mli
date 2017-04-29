@@ -23,4 +23,4 @@ type token =
   | EOF
 
 val main :
-  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Interpreter_secd.opcode list
+  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Types.opcode list

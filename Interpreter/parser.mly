@@ -1,5 +1,5 @@
 %{
-  open Interpreter_secd
+  open Types
   open Printf
 %}
 
@@ -40,9 +40,9 @@
 %nonassoc NOT_EQUAL_
 
 %start main
-%type <Interpreter_secd.opcode list> main
-%type <Interpreter_secd.opcode list> expression
-%type <Interpreter_secd.opcode list> function
+%type <Types.opcode list> main
+%type <Types.opcode list> expression
+%type <Types.opcode list> function
 %%
 
 main:
