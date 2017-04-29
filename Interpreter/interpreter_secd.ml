@@ -8,7 +8,7 @@ let add stk = match stk with
 ;;
 
 let sub stk = match stk with
-  (VCL_INT x )::(VCL_INT y :: tl) -> (VCL_INT (x-y))::tl
+  (VCL_INT y )::(VCL_INT x :: tl) -> (VCL_INT (x-y))::tl
 | _ -> failwith "Wrong Stack"
 ;;
 
@@ -56,7 +56,10 @@ let func_ret dmp = match dmp with
 
 let rec find_var var env = match env with
 [] -> failwith "Undeclared variable accessed"
-| (v,cl)::tl -> if v=var then cl else find_var var tl
+| (v,cl)::tl -> if v <> var then find_var var tl else (match cl with 
+                                                      CL (env,oplist) -> CL ((var,cl)::env,oplist) (* Modifying env to allow recursion*)
+                                                      | _ -> cl
+                                                      )
 ;;
 
 let if_else stk opl1 opl2 = match stk with
@@ -100,7 +103,7 @@ let solve fl_name =
   interpret_secd prog [] [] []
 ;;
 
-let main () = ()
+let main () = let _ = solve "test_prog.ml" in ()
 ;;
 
 if !Sys.interactive then () else main ();;

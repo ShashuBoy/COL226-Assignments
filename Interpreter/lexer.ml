@@ -648,62 +648,62 @@ and __ocaml_lex_translate_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
 # 34 "lexer.mll"
-                    (let () = Printf.printf "TRUE\n" in BOOLEAN_(true))
+                    ((*let () = Printf.printf "TRUE\n" in *) BOOLEAN_(true))
 # 653 "lexer.ml"
 
   | 1 ->
 # 35 "lexer.mll"
-                    (let () = Printf.printf "FALSE\n" in BOOLEAN_(false))
+                    ((*let () = Printf.printf "FALSE\n" in *) BOOLEAN_(false))
 # 658 "lexer.ml"
 
   | 2 ->
 # 36 "lexer.mll"
-                    (let () = Printf.printf "SEP\n" in SEP_)
+                    ((*let () = Printf.printf "SEP\n" in *) SEP_)
 # 663 "lexer.ml"
 
   | 3 ->
 # 37 "lexer.mll"
-                    (let () = Printf.printf "NOT\n" in NOT_ )
+                    ((*let () = Printf.printf "NOT\n" in *) NOT_ )
 # 668 "lexer.ml"
 
   | 4 ->
 # 38 "lexer.mll"
-                    (let () = Printf.printf "FUNC Start\n" in FUNC_)
+                    ((*let () = Printf.printf "FUNC Start\n" in *) FUNC_)
 # 673 "lexer.ml"
 
   | 5 ->
 # 39 "lexer.mll"
-                    (let () = Printf.printf "LET\n" in LET_ )
+                    ((*let () = Printf.printf "LET\n" in *) LET_ )
 # 678 "lexer.ml"
 
   | 6 ->
 # 40 "lexer.mll"
-                    (let () = Printf.printf "IF\n" in IF_ )
+                    ((*let () = Printf.printf "IF\n" in *) IF_ )
 # 683 "lexer.ml"
 
   | 7 ->
 # 41 "lexer.mll"
-                    (let () = Printf.printf "THEN\n" in THEN_ )
+                    ((*let () = Printf.printf "THEN\n" in *) THEN_ )
 # 688 "lexer.ml"
 
   | 8 ->
 # 42 "lexer.mll"
-                    (let () = Printf.printf "ELSE\n" in ELSE_ )
+                    ((*let () = Printf.printf "ELSE\n" in *) ELSE_ )
 # 693 "lexer.ml"
 
   | 9 ->
 # 43 "lexer.mll"
-                    (let () = Printf.printf "ARROW\n" in ARROW_ )
+                    ((*let () = Printf.printf "ARROW\n" in *) ARROW_ )
 # 698 "lexer.ml"
 
   | 10 ->
 # 44 "lexer.mll"
-                    (let () = Printf.printf "COM START\n" in single_line lexbuf)
+                    ((*let () = Printf.printf "COM START\n" in *) single_line lexbuf)
 # 703 "lexer.ml"
 
   | 11 ->
 # 45 "lexer.mll"
-                    (let () = Printf.printf "COM BLOCK START\n" in multi_line lexbuf)
+                    ((*let () = Printf.printf "COM BLOCK START\n" in *) multi_line lexbuf)
 # 708 "lexer.ml"
 
   | 12 ->
@@ -713,7 +713,7 @@ let
 # 714 "lexer.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
 # 46 "lexer.mll"
-                    (let () = Printf.printf "VAR(variable)\n" in VAR_(variable))
+                    ((*let () = Printf.printf "VAR(variable)\n" in *) VAR_(variable))
 # 718 "lexer.ml"
 
   | 13 ->
@@ -723,67 +723,67 @@ let
 # 724 "lexer.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
 # 47 "lexer.mll"
-                    (let () = Printf.printf "INTEGER\n" in INTEGER_(int_of_string integer))
+                    ((*let () = Printf.printf "INTEGER\n" in *) INTEGER_(int_of_string integer))
 # 728 "lexer.ml"
 
   | 14 ->
 # 48 "lexer.mll"
-                    (let () = Printf.printf "EQUAL\n" in EQUAL_)
+                    ((*let () = Printf.printf "EQUAL\n" in *) EQUAL_)
 # 733 "lexer.ml"
 
   | 15 ->
 # 49 "lexer.mll"
-                    (let () = Printf.printf "NOT_EQ\n" in NOT_EQUAL_)
+                    ((*let () = Printf.printf "NOT_EQ\n" in *) NOT_EQUAL_)
 # 738 "lexer.ml"
 
   | 16 ->
 # 50 "lexer.mll"
-                    (let () = Printf.printf "O_PAREN\n" in O_PAREN_)
+                    ((*let () = Printf.printf "O_PAREN\n" in *) O_PAREN_)
 # 743 "lexer.ml"
 
   | 17 ->
 # 51 "lexer.mll"
-                    (let () = Printf.printf "C_PAREN\n" in C_PAREN_)
+                    ((*let () = Printf.printf "C_PAREN\n" in *) C_PAREN_)
 # 748 "lexer.ml"
 
   | 18 ->
 # 52 "lexer.mll"
-                    (let () = Printf.printf "OR_\n" in OR_)
+                    ((*let () = Printf.printf "OR_\n" in *) OR_)
 # 753 "lexer.ml"
 
   | 19 ->
 # 53 "lexer.mll"
-                    (let () = Printf.printf "AND_\n" in AND_)
+                    ((*let () = Printf.printf "AND_\n" in *) AND_)
 # 758 "lexer.ml"
 
   | 20 ->
 # 54 "lexer.mll"
-                    (let () = Printf.printf "MUL_\n" in MUL_)
+                    ((*let () = Printf.printf "MUL_\n" in *) MUL_)
 # 763 "lexer.ml"
 
   | 21 ->
 # 55 "lexer.mll"
-                    (let () = Printf.printf "ADD_\n" in ADD_)
+                    ((*let () = Printf.printf "ADD_\n" in *) ADD_)
 # 768 "lexer.ml"
 
   | 22 ->
 # 56 "lexer.mll"
-                    (let () = Printf.printf "SUB_\n" in SUB_)
+                    ((*let () = Printf.printf "SUB_\n" in *) SUB_)
 # 773 "lexer.ml"
 
   | 23 ->
 # 57 "lexer.mll"
-                    ( let () = Printf.printf "NEWLINE \n" in translate lexbuf )
+                    ((*let () = Printf.printf "NEWLINE \n" in *) translate lexbuf )
 # 778 "lexer.ml"
 
   | 24 ->
 # 58 "lexer.mll"
-                    ( let () = Printf.printf "Whitespace \n" in translate lexbuf )
+                    ((*let () = Printf.printf "Whitespace \n" in *) translate lexbuf )
 # 783 "lexer.ml"
 
   | 25 ->
 # 59 "lexer.mll"
-                    ( let () = Printf.printf "EOF \n" in EOF )
+                    ((*let () = Printf.printf "EOF \n" in *) EOF )
 # 788 "lexer.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf; 
