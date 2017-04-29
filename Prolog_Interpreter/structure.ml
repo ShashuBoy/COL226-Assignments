@@ -72,6 +72,7 @@ let rec mgu t1 t2 = match (t1,t2) with
 |   (Cons(x),Var(y)) -> mgu (Var y) (Cons x)
 |   (Cons(x),Cons(y)) -> if (x <> y) then raise NOT_UNIFIABLE else idty_subst
 |   (Var(x),Node(Atom(f,lst))) -> if SS.exists (fun a -> a=x) (vars (Node ( Atom(f,lst) ) ) ) then raise NOT_UNIFIABLE else (fun var -> if var = x then (Node(Atom(f,lst))) else (Var var) )
+|   (Node(Atom(f,lst)),Var(x)) -> if SS.exists (fun a -> a=x) (vars (Node ( Atom(f,lst) ) ) ) then raise NOT_UNIFIABLE else (fun var -> if var = x then (Node(Atom(f,lst))) else (Var var) )
 |   _ -> raise NOT_UNIFIABLE
 ;;
 
@@ -86,7 +87,7 @@ let print_vars t = let v = vars t in SS.fold (fun x lst -> (Var x)::lst ) v [];;
 
 let rec find_feasible fn = function
   [] -> (* Printf.printf "failed find_feasible"; flush Pervasives.stdout; *) False
-| hd::tl -> (
+| hd::tl -> ([Cons "nil"; Var "_A"; Var "_A"]
                 match (fn hd) with
                   False -> find_feasible fn tl
                 | True ans -> (True ans)

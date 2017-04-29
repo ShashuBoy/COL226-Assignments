@@ -2,6 +2,4 @@
 #load "parser.cmo";;
 #use "interpreter_secd.ml";;
 
-let decl = open_in "test_prog.ml";;
-let lexbuf = Lexing.from_channel decl;;
-let prog = Parser.main Lexer.translate lexbuf;;
+solve "test_prog.ml";;
