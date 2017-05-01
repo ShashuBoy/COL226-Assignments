@@ -117,14 +117,22 @@ let bind_x = [LET(x)];;
 let add_x_y = [ACCESS(x);ACCESS(y);ADD];;
 let prog = y_44@fn_decl@y_99@fnc_call@bind_x@add_x_y;;
 
+
+let print_stack_top stk = match stk with
+  [] -> Printf.printf "Empty stack returned\n"
+| (VCL_INT i)::tl -> Printf.printf "Result => %d\n" i
+| (VCL_BOOL b)::tl -> Printf.printf "Result => %B\n" b
+| _ -> Printf.printf "Element on top of stack is not a Value Closure\n"
+;;
+
 let solve fl_name = 
   let decl = open_in fl_name in
   let lexbuf = Lexing.from_channel decl in
   let prog = Parser.main Lexer.translate lexbuf in
-  interpret_secd prog [] [] []
+  print_stack_top (interpret_secd prog [] [] [])
 ;;
 
-let main () = let _ = solve "test_prog.ml" in ()
+let main () = let _ = solve "../test_prog.ml" in ()
 ;;
 
 if !Sys.interactive then () else main ();;
